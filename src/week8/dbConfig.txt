@@ -1,0 +1,3 @@
+DRIVER=jdbc:mysql://localhost:3306
+USER=root
+PASS=root
