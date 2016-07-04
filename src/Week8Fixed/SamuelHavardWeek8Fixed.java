@@ -63,6 +63,8 @@ public class SamuelHavardWeek8Fixed extends javax.swing.JFrame {
         btnSubmit1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
+        lockoutPanel = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +78,11 @@ public class SamuelHavardWeek8Fixed extends javax.swing.JFrame {
         jLabel2.setText("Password:");
 
         username_field.setToolTipText("Enter Username");
+        username_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                username_fieldActionPerformed(evt);
+            }
+        });
 
         password_field.setToolTipText("Enter Password");
 
@@ -352,6 +359,31 @@ public class SamuelHavardWeek8Fixed extends javax.swing.JFrame {
 
         cardPanel.add(loginPanel1, "reAuth");
 
+        lockoutPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
+        lockoutPanel.setPreferredSize(new java.awt.Dimension(500, 300));
+
+        jLabel7.setText("You have exceeded your maximum number of login attempts");
+
+        javax.swing.GroupLayout lockoutPanelLayout = new javax.swing.GroupLayout(lockoutPanel);
+        lockoutPanel.setLayout(lockoutPanelLayout);
+        lockoutPanelLayout.setHorizontalGroup(
+            lockoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lockoutPanelLayout.createSequentialGroup()
+                .addContainerGap(119, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(104, 104, 104))
+        );
+        lockoutPanelLayout.setVerticalGroup(
+            lockoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lockoutPanelLayout.createSequentialGroup()
+                .addGap(163, 163, 163)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(188, Short.MAX_VALUE))
+        );
+
+        cardPanel.add(lockoutPanel, "lockoutCard");
+        lockoutPanel.getAccessibleContext().setAccessibleName("Lockout");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -407,8 +439,14 @@ public class SamuelHavardWeek8Fixed extends javax.swing.JFrame {
                         break;
                 }
             } else {
+                attempt++;
+                if (attempt <= 3) {
                 JOptionPane.showMessageDialog(null, "Incorrect Username or Password");
+                } else {
+                    cardLayout.show(cardPanel, "lockoutCard");
+                }
             }
+
         } catch (SQLException | UnsupportedEncodingException e) {
             Logger.getLogger(SamuelHavardWeek8Fixed.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -472,6 +510,10 @@ public class SamuelHavardWeek8Fixed extends javax.swing.JFrame {
         cardLayout.show(cardPanel, "appCard4");
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void username_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_username_fieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -510,11 +552,13 @@ public class SamuelHavardWeek8Fixed extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblWeek6;
     private javax.swing.JLabel lblWeek7;
     private javax.swing.JLabel lblWeek8;
     private javax.swing.JLabel lblWeek9;
+    private javax.swing.JPanel lockoutPanel;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JPanel loginPanel1;
     private javax.swing.JTextField password_field;
@@ -522,4 +566,5 @@ public class SamuelHavardWeek8Fixed extends javax.swing.JFrame {
     private javax.swing.JTextField username_field;
     // End of variables declaration//GEN-END:variables
 User user = null;
+int attempt = 0;
 }
