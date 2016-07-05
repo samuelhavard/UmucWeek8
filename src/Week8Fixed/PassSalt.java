@@ -22,14 +22,15 @@ public class PassSalt {
      * @return a unique salt that is to be stored in the database with
      * the users information.
      */
-    public static Double getSalt(){
+    public static byte[] getSalt(){
+        byte[] bytes = null;
         try {
             secureRandom = SecureRandom.getInstance("SHA1PRNG");
-            byte[] bytes = new byte[512];
+            bytes = new byte[512];
             secureRandom.nextBytes(bytes);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(PassSalt.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return secureRandom.nextDouble();
+        return bytes;
     }
 }

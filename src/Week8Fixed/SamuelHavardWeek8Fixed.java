@@ -3,6 +3,8 @@ package Week8Fixed;
 import java.awt.CardLayout;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -447,7 +449,7 @@ public class SamuelHavardWeek8Fixed extends javax.swing.JFrame {
                 }
             }
 
-        } catch (SQLException | UnsupportedEncodingException e) {
+        } catch (SQLException | UnsupportedEncodingException | NoSuchAlgorithmException | InvalidKeySpecException e) {
             Logger.getLogger(SamuelHavardWeek8Fixed.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
@@ -496,7 +498,7 @@ public class SamuelHavardWeek8Fixed extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, msg);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
             Logger.getLogger(SamuelHavardWeek8Fixed.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(SamuelHavardWeek8Fixed.class.getName()).log(Level.SEVERE, null, ex);

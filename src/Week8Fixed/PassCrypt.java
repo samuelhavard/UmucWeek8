@@ -6,10 +6,15 @@
 package Week8Fixed;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 /**
  *
@@ -25,22 +30,26 @@ public class PassCrypt {
      * @param pass is the password that the user entered
      * @param salt is the salt retrieved from the database
      * @return the hashed and salted password
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException
      */
-    public static String passCrypt(String pass, double salt) {
-        try {
-            hashSalt = pass + salt;
-            md = MessageDigest.getInstance("MD5");
-            byte[] passBytes = hashSalt.getBytes("UTF8");
-            md.reset();
-            byte[] digested = md.digest(passBytes);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < digested.length; i++) {
-                sb.append(Integer.toHexString(0xff & digested[i]));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            Logger.getLogger(PassCrypt.class.getName()).log(Level.SEVERE, null, ex);
+    public static String passCrypt(String pass, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+
+    int iterations = 1000;
+    char[] chars = pass.toCharArray();
+    
+    PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
+    SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+    byte[] hash = skf.generateSecret(spec).getEncoded();
+    
+    BigInteger bi = new BigInteger(1, hash);
+        String hex = bi.toString(16);
+        int paddingLength = (hash.length * 2) - hex.length();
+        if(paddingLength > 0)
+        {
+            return String.format("%0"  +paddingLength + "d", 0) + hex;
+        }else{
+            return hex;
         }
-        return null;
     }
 }

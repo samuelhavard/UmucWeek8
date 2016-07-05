@@ -6,6 +6,8 @@
 package Week8Fixed;
 
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +39,7 @@ final public class UserAuth {
      * @throws SQLException
      * @throws UnsupportedEncodingException
      */
-    public boolean readDB() throws SQLException, UnsupportedEncodingException {
+    public boolean readDB() throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -52,13 +54,14 @@ final public class UserAuth {
             /*
              * get the unique salt from the database based off of the username
              */
-            double salt = resSet.getDouble("Salt");
+            byte[] salt = resSet.getBytes("Salt");
 
             /*
              * get the user input password and hash / salt it.
              */
             String hashPass;
             hashPass = PassCrypt.passCrypt(password, salt);
+            System.out.println(hashPass);
 
             /*
              * convert both the user input text password that has been salted and hashed
