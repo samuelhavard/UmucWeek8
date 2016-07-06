@@ -5,14 +5,9 @@
  */
 package Week8Fixed;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -22,8 +17,6 @@ import javax.crypto.spec.PBEKeySpec;
  */
 public class PassCrypt {
 
-    private static MessageDigest md;
-    private static String hashSalt;
 
     /**
      * 

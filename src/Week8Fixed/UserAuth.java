@@ -38,6 +38,8 @@ final public class UserAuth {
      * @return
      * @throws SQLException
      * @throws UnsupportedEncodingException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException
      */
     public boolean readDB() throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException {
 
